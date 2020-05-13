@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RestApi.NetCore.Areas.Identity;
+using RestApi.NetCore.Models;
 
 namespace RestApi.NetCore.Data
 {
@@ -13,5 +14,6 @@ namespace RestApi.NetCore.Data
             : base(options)
         {
         }
+        public DbSet<RestApi.NetCore.Models.BodyTemperature> BodyTemperature { get; set; }
     }
 }
