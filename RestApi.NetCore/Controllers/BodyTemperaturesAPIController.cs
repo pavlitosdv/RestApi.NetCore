@@ -25,14 +25,14 @@ namespace RestApi.NetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BodyTemperature>>> GetBodyTemperature()
         {
-            return await _context.BodyTemperature.ToListAsync();
+            return await _context.BodyTemperatures.ToListAsync();
         }
 
         // GET: api/BodyTemperaturesAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BodyTemperature>> GetBodyTemperature(int id)
         {
-            var bodyTemperature = await _context.BodyTemperature.FindAsync(id);
+            var bodyTemperature = await _context.BodyTemperatures.FindAsync(id);
 
             if (bodyTemperature == null)
             {
@@ -81,7 +81,9 @@ namespace RestApi.NetCore.Controllers
                 return BadRequest("Body Temperature limits should be between 35 and 42");
             }
 
-            _context.BodyTemperature.Add(bodyTemperature);
+            FeverIntervalMethod(bodyTemperature);
+
+            _context.BodyTemperatures.Add(bodyTemperature);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBodyTemperature", new { id = bodyTemperature.Id }, bodyTemperature);
@@ -91,13 +93,13 @@ namespace RestApi.NetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BodyTemperature>> DeleteBodyTemperature(int id)
         {
-            var bodyTemperature = await _context.BodyTemperature.FindAsync(id);
+            var bodyTemperature = await _context.BodyTemperatures.FindAsync(id);
             if (bodyTemperature == null)
             {
                 return NotFound();
             }
 
-            _context.BodyTemperature.Remove(bodyTemperature);
+            _context.BodyTemperatures.Remove(bodyTemperature);
             await _context.SaveChangesAsync();
 
             return bodyTemperature;
@@ -105,7 +107,78 @@ namespace RestApi.NetCore.Controllers
 
         private bool BodyTemperatureExists(int id)
         {
-            return _context.BodyTemperature.Any(e => e.Id == id);
+            return _context.BodyTemperatures.Any(e => e.Id == id);
         }
+
+
+        #region Methods for adding Fever Intervals (Temporary here. They Will be Moved into another Folder) 
+
+        private void FeverIntervalMethod(BodyTemperature bodyTemperature)
+        {
+            FeverInterval fever = GetUserLastFeverInterval(bodyTemperature.UserId);
+            if (bodyTemperature.Temperature > 37.5)
+            {
+                if (fever == null)
+                {
+                    FeverInterval feverInterval = new FeverInterval();
+                    feverInterval.UserId = bodyTemperature.UserId;
+                    feverInterval.StartedTemperature = bodyTemperature.Temperature;
+                    feverInterval.StartDate = DateTime.Now.Date;
+                    //feverInterval.EndDate = null;
+
+                    PostFeverInterval1(feverInterval);
+                }
+                else if (fever.EndDate != null)
+                {
+                    FeverInterval feverInterval = new FeverInterval();
+                    feverInterval.UserId = bodyTemperature.UserId;
+                    feverInterval.StartedTemperature = bodyTemperature.Temperature;
+                    feverInterval.StartDate = DateTime.Now.Date;
+                    //feverInterval.EndDate = null;
+
+                    PostFeverInterval1(feverInterval);
+                }
+            }
+            else
+            {
+                if (fever != null && fever.EndDate == null)
+                {
+                    FeverInterval feverInterval = new FeverInterval();
+                    feverInterval.Id = fever.Id;
+                    feverInterval.UserId = fever.UserId;
+                    feverInterval.StartedTemperature = fever.StartedTemperature;
+                    feverInterval.StartDate = fever.StartDate;
+                    feverInterval.EndDate = DateTime.Now.Date;
+                    PutFeverInterval(fever.Id, feverInterval);
+                }
+
+            }
+
+        }
+
+        public FeverInterval GetUserLastFeverInterval(string userId)
+        {
+            var feverInterval = _context.FeverIntervals.AsNoTracking().AsEnumerable().LastOrDefault(i => i.UserId == userId);
+
+            return feverInterval;
+        }
+
+
+        public void PostFeverInterval1(FeverInterval feverInterval)
+        {
+            _context.FeverIntervals.Add(feverInterval);
+            //await _context.SaveChangesAsync();
+        }
+
+
+        public void PutFeverInterval(int id, FeverInterval feverInterval)
+        {
+            _context.FeverIntervals.Attach(feverInterval);
+            _context.Entry(feverInterval).State = EntityState.Modified;
+            // _context.SaveChangesAsync();            
+
+        }
+
+        #endregion
     }
 }

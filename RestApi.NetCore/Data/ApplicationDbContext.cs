@@ -14,7 +14,7 @@ namespace RestApi.NetCore.Data
             : base(options)
         {
         }
-        public DbSet<RestApi.NetCore.Models.BodyTemperature> BodyTemperature { get; set; }
-        public DbSet<RestApi.NetCore.Models.FeverInterval> FeverInterval { get; set; }
+        public DbSet<BodyTemperature> BodyTemperatures { get; set; }
+        public DbSet<FeverInterval> FeverIntervals { get; set; }
     }
 }

@@ -25,14 +25,14 @@ namespace RestApi.NetCore.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FeverInterval>>> GetFeverInterval()
         {
-            return await _context.FeverInterval.ToListAsync();
+            return await _context.FeverIntervals.ToListAsync();
         }
 
         // GET: api/FeverIntervalsAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FeverInterval>> GetFeverInterval(int id)
         {
-            var feverInterval = await _context.FeverInterval.FindAsync(id);
+            var feverInterval = await _context.FeverIntervals.FindAsync(id);
 
             if (feverInterval == null)
             {
@@ -80,7 +80,7 @@ namespace RestApi.NetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<FeverInterval>> PostFeverInterval(FeverInterval feverInterval)
         {
-            _context.FeverInterval.Add(feverInterval);
+            _context.FeverIntervals.Add(feverInterval);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFeverInterval", new { id = feverInterval.Id }, feverInterval);
@@ -90,13 +90,13 @@ namespace RestApi.NetCore.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<FeverInterval>> DeleteFeverInterval(int id)
         {
-            var feverInterval = await _context.FeverInterval.FindAsync(id);
+            var feverInterval = await _context.FeverIntervals.FindAsync(id);
             if (feverInterval == null)
             {
                 return NotFound();
             }
 
-            _context.FeverInterval.Remove(feverInterval);
+            _context.FeverIntervals.Remove(feverInterval);
             await _context.SaveChangesAsync();
 
             return feverInterval;
@@ -104,7 +104,7 @@ namespace RestApi.NetCore.Controllers
 
         private bool FeverIntervalExists(int id)
         {
-            return _context.FeverInterval.Any(e => e.Id == id);
+            return _context.FeverIntervals.Any(e => e.Id == id);
         }
     }
 }
