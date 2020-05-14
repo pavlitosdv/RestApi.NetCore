@@ -13,7 +13,7 @@ namespace RestApi.NetCore.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int Temperature { get; set; }
+        public float Temperature { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]

@@ -13,9 +13,11 @@ namespace RestApi.NetCore.Models
         [Key]
         public int Id { get; set; }
 
-        public int StartedTemperature { get; set; }
+        public float StartedTemperature { get; set; }
         //public int FeverEnd { get; set; }
+        [Display(Name = "Fever Starting Date")]
         public DateTime StartDate { get; set; }
+        [Display(Name = "Fever Ending Date")]
         public DateTime? EndDate { get; set; }
 
         public string UserId { get; set; }

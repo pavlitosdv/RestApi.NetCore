@@ -116,7 +116,7 @@ namespace RestApi.NetCore.Controllers
         private void FeverIntervalMethod(BodyTemperature bodyTemperature)
         {
             FeverInterval fever = GetUserLastFeverInterval(bodyTemperature.UserId);
-            if (bodyTemperature.Temperature > 37.5)
+            if ((int)bodyTemperature.Temperature > 37.5)
             {
                 if (fever == null)
                 {
