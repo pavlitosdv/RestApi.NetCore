@@ -76,6 +76,11 @@ namespace RestApi.NetCore.Controllers
         [HttpPost]
         public async Task<ActionResult<BodyTemperature>> PostBodyTemperature([FromBody]BodyTemperature bodyTemperature)
         {
+            if (bodyTemperature.Temperature < 35 || bodyTemperature.Temperature > 42)
+            {
+                return BadRequest("Body Temperature limits should be between 35 and 42");
+            }
+
             _context.BodyTemperature.Add(bodyTemperature);
             await _context.SaveChangesAsync();
 
