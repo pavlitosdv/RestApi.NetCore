@@ -27,6 +27,10 @@ namespace RestApi.NetCore.Controllers
 
 
         // GET: api/BodyTemperaturesAPI
+        /// <summary>
+        /// Get all method
+        /// </summary>
+        /// <returns>it gives all the users records of the Body Temperatures Table </returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BodyTemperature>>> GetBodyTemperature()
         {
@@ -35,11 +39,16 @@ namespace RestApi.NetCore.Controllers
             return Ok(ok);
         }
 
+        /// <summary>
+        /// Get By Id method. 
+        /// </summary>
+        /// <param name="id">Primary key</param>
+        /// <returns>Gives a record by using the Primary key</returns>
         // GET: api/BodyTemperaturesAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BodyTemperature>> GetBodyTemperature(int id)
+        public async Task<ActionResult<BodyTemperature>> GetBodyTemperatureByUserId(string userId)
         {
-            var bodyTemperature = await _repo.GetBodyTemperaturesById(id);
+            var bodyTemperature = await _repo.GetBodyTemperaturesById(userId);
 
             if (bodyTemperature == null)
             {
@@ -89,7 +98,17 @@ namespace RestApi.NetCore.Controllers
 
         #endregion
 
-        // POST: api/BodyTemperaturesAPI        
+        // POST: api/BodyTemperaturesAPI     
+        /// <summary>
+        /// Method that adds a new record. Also according to some validation if the Temperature is above 37.5 then 
+        /// it creates or updates a record. More spesific. if the added temperature is above 37.5 then 
+        /// it checks into the Fever Interval's Table if the user has already a fever session. 
+        /// If not it creates a new record and includes the date that the fever session started, 
+        /// else if the fever session is lower than 37.5 and there is an open Fever session, 
+        /// it will be updated by adding the End Date that the fever session ended.
+        /// </summary>
+        /// <param name="bodyTemperature"></param>
+        /// <returns>creates or updates tables as described into summary</returns>
         [HttpPost]
         public async Task<ActionResult<BodyTemperature>> PostBodyTemperature([FromBody]BodyTemperature bodyTemperature)
         {
@@ -108,6 +127,11 @@ namespace RestApi.NetCore.Controllers
         
 
         // DELETE: api/BodyTemperaturesAPI/5
+        /// <summary>
+        /// Delete Method using the Primary Id Key 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<BodyTemperature>> DeleteBodyTemperature(int id)
         {

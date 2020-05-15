@@ -10,7 +10,7 @@ namespace RestApi.NetCore.Interfaces
     {
 
         Task<IEnumerable<BodyTemperature>> GetAllBodyTemperatures();
-        Task<BodyTemperature> GetBodyTemperaturesById(int id);
+        Task<IEnumerable<BodyTemperature>> GetBodyTemperaturesById(string userId);
 
         //Task<IActionResult> PutBodyTemperature(int id, BodyTemperature bodyTemperature);
 

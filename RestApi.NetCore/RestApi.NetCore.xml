@@ -4,12 +4,37 @@
         <name>RestApi.NetCore</name>
     </assembly>
     <members>
+        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.GetBodyTemperature">
+            <summary>
+            Get all method
+            </summary>
+            <returns>it gives all the users records of the Body Temperatures Table </returns>
+        </member>
+        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.GetBodyTemperatureByUserId(System.String)">
+            <summary>
+            Get By Id method. 
+            </summary>
+            <param name="id">Primary key</param>
+            <returns>Gives a record by using the Primary key</returns>
+        </member>
+        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.PostBodyTemperature(RestApi.NetCore.Models.BodyTemperature)">
+            <summary>
+            Method that adds a new record. Also according to some validation if the Temperature is above 37.5 then 
+            it creates or updates a record. More spesific. if the added temperature is above 37.5 then 
+            it checks into the Fever Interval's Table if the user has already a fever session. 
+            If not it creates a new record and includes the date that the fever session started, 
+            else if the fever session is lower than 37.5 and there is an open Fever session, 
+            it will be updated by adding the End Date that the fever session ended.
+            </summary>
+            <param name="bodyTemperature"></param>
+            <returns>creates or updates tables as described into summary</returns>
+        </member>
         <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.DeleteBodyTemperature(System.Int32)">
             <summary>
-            COMENTESCOMENTESCOMENTESCOMENTES
+            Delete Method using the Primary Id Key 
             </summary>
-            <param name="id">COMENTESCOMENTESCOMENTESCOMENTES</param>
-            <returns>COMENTESCOMENTESCOMENTESCOMENTES</returns>
+            <param name="id"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

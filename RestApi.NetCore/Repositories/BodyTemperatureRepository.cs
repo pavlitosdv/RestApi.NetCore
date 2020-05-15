@@ -30,10 +30,10 @@ namespace RestApi.NetCore.Repositories
             return bodyTemperatures;
         }
 
-        public async Task<BodyTemperature> GetBodyTemperaturesById(int id)
+        public async Task<IEnumerable<BodyTemperature>> GetBodyTemperaturesById(string userId)
         {
-            var bodyTemperature = await _context.BodyTemperatures.FindAsync(id);
-
+            var bodyTemperature = await _context.BodyTemperatures.Where(i => i.UserId == userId).ToListAsync();
+            
             if (bodyTemperature == null)
             {
                 return bodyTemperature;
