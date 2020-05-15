@@ -24,6 +24,8 @@ namespace RestApi.NetCore.Controllers
             _ifeverRepo = ifeverRepo;
         }
 
+
+
         // GET: api/BodyTemperaturesAPI
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BodyTemperature>>> GetBodyTemperature()
@@ -102,6 +104,8 @@ namespace RestApi.NetCore.Controllers
 
             return CreatedAtAction("GetBodyTemperature", new { id = bodyTemperature.Id }, bodyTemperature);
         }
+
+        
 
         // DELETE: api/BodyTemperaturesAPI/5
         [HttpDelete("{id}")]

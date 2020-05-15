@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestApi.NetCore</name>
+    </assembly>
+    <members>
+        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.DeleteBodyTemperature(System.Int32)">
+            <summary>
+            COMENTESCOMENTESCOMENTESCOMENTES
+            </summary>
+            <param name="id">COMENTESCOMENTESCOMENTESCOMENTES</param>
+            <returns>COMENTESCOMENTESCOMENTESCOMENTES</returns>
+        </member>
+    </members>
+</doc>
