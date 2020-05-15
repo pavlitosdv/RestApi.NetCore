@@ -18,13 +18,9 @@ namespace RestApi.NetCore.Repositories
         }
 
 
-
-
-
         public void FeverIntervalMethod(BodyTemperature bodyTemperature)
         {
             FeverInterval fever = GetUserLastFeverInterval(bodyTemperature.UserId);
-
 
             if (bodyTemperature.Temperature > 37.5)
             {
@@ -66,6 +62,24 @@ namespace RestApi.NetCore.Repositories
 
         }
 
+
+        public async Task<IEnumerable<FeverInterval>> GetFeversIntervalByUserId(string userId)
+        {
+            var feverIntervals = await _context.FeverIntervals.Where(i => i.UserId == userId).ToListAsync();
+
+            if (feverIntervals == null)
+            {
+                return feverIntervals;
+            }
+
+            return feverIntervals;
+        }
+
+
+        #region Chained methods of FeverIntervalMethod
+
+        //This method gets the last Fever Session of the User. 
+        //If no record exists, brings null
         public FeverInterval GetUserLastFeverInterval(string userId)
         {
             var feverInterval = _context.FeverIntervals.AsNoTracking().AsEnumerable().LastOrDefault(i => i.UserId == userId);
@@ -74,13 +88,16 @@ namespace RestApi.NetCore.Repositories
         }
 
 
+        // This Method creates a new record if the criteria is met 
+        //criteria: Body Temperature > 37.5
         public void PostFeverInterval1(FeverInterval feverInterval)
         {
             _context.FeverIntervals.Add(feverInterval);
             //await _context.SaveChangesAsync();
         }
 
-
+        //This Methos updates an existing record by adding the End Date when
+        //the criteria is met. Criteria has to be Body Temperature < 37.5
         public void PutFeverInterval(int id, FeverInterval feverInterval)
         {
             _context.FeverIntervals.Attach(feverInterval);
@@ -89,5 +106,6 @@ namespace RestApi.NetCore.Repositories
 
         }
 
+        #endregion
     }
 }

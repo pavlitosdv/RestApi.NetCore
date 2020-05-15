@@ -9,5 +9,7 @@ namespace RestApi.NetCore.Interfaces
    public interface IFeverIntervalInterface
     {
         void FeverIntervalMethod(BodyTemperature bodyTemperature);
+
+        Task<IEnumerable<FeverInterval>> GetFeversIntervalByUserId(string userId);
     }
 }

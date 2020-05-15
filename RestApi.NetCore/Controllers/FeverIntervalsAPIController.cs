@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestApi.NetCore.Data;
+using RestApi.NetCore.Interfaces;
 using RestApi.NetCore.Models;
 
 namespace RestApi.NetCore.Controllers
@@ -14,97 +15,31 @@ namespace RestApi.NetCore.Controllers
     [ApiController]
     public class FeverIntervalsAPIController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public FeverIntervalsAPIController(ApplicationDbContext context)
+        private readonly IFeverIntervalInterface _repo;
+        public FeverIntervalsAPIController(IFeverIntervalInterface repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        // GET: api/FeverIntervalsAPI
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeverInterval>>> GetFeverInterval()
-        {
-            return await _context.FeverIntervals.ToListAsync();
-        }
-
-        // GET: api/FeverIntervalsAPI/5
+                
+        /// <summary>
+        /// Gets the User's Fever Sessions
+        /// </summary>
+        /// <param name="id">The parameter Id is string type</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<FeverInterval>> GetFeverInterval(int id)
+        public async Task<ActionResult<FeverInterval>> GetFeversIntervalByUserId(string id)
         {
-            var feverInterval = await _context.FeverIntervals.FindAsync(id);
+            var feverInterval = await _repo.GetFeversIntervalByUserId(id);
 
             if (feverInterval == null)
             {
                 return NotFound();
             }
 
-            return feverInterval;
+            return Ok(feverInterval);
         }
 
-        // PUT: api/FeverIntervalsAPI/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeverInterval(int id, FeverInterval feverInterval)
-        {
-            if (id != feverInterval.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(feverInterval).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FeverIntervalExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/FeverIntervalsAPI
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<FeverInterval>> PostFeverInterval(FeverInterval feverInterval)
-        {
-            _context.FeverIntervals.Add(feverInterval);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFeverInterval", new { id = feverInterval.Id }, feverInterval);
-        }
-
-        // DELETE: api/FeverIntervalsAPI/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<FeverInterval>> DeleteFeverInterval(int id)
-        {
-            var feverInterval = await _context.FeverIntervals.FindAsync(id);
-            if (feverInterval == null)
-            {
-                return NotFound();
-            }
-
-            _context.FeverIntervals.Remove(feverInterval);
-            await _context.SaveChangesAsync();
-
-            return feverInterval;
-        }
-
-        private bool FeverIntervalExists(int id)
-        {
-            return _context.FeverIntervals.Any(e => e.Id == id);
-        }
+        
     }
 }
