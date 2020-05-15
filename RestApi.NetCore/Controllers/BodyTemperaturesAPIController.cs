@@ -14,14 +14,7 @@ namespace RestApi.NetCore.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class BodyTemperaturesAPIController : ControllerBase
-    {
-        private readonly ApplicationDbContext _context;
-
-        public BodyTemperaturesAPIController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
+    {       
         private readonly IBodyTemperaturesIntreface _repo;
         private readonly IFeverIntervalInterface _ifeverRepo;
 
