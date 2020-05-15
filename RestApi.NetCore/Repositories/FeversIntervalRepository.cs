@@ -18,6 +18,9 @@ namespace RestApi.NetCore.Repositories
         }
 
 
+
+
+
         public void FeverIntervalMethod(BodyTemperature bodyTemperature)
         {
             FeverInterval fever = GetUserLastFeverInterval(bodyTemperature.UserId);
