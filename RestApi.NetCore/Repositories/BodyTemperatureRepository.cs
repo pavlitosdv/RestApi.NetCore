@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestApi.NetCore.Data;
+using RestApi.NetCore.Interfaces;
 using RestApi.NetCore.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.NetCore.Repositories
 {
-    public class BodyTemperatureRepository
+    public class BodyTemperatureRepository :IBodyTemperaturesIntreface
     {
 
         private readonly ApplicationDbContext _context;

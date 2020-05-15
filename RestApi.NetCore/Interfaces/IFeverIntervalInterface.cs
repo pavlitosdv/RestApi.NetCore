@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.NetCore.Interfaces
 {
-    interface IFeverIntervalInterface
+   public interface IFeverIntervalInterface
     {
         void FeverIntervalMethod(BodyTemperature bodyTemperature);
     }

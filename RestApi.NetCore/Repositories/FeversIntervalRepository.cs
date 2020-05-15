@@ -1,4 +1,6 @@
-﻿using RestApi.NetCore.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RestApi.NetCore.Data;
+using RestApi.NetCore.Interfaces;
 using RestApi.NetCore.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.NetCore.Repositories
 {
-    public class FeversIntervalRepository
+    public class FeversIntervalRepository :IFeverIntervalInterface
     {
         private readonly ApplicationDbContext _context;
         public FeversIntervalRepository(ApplicationDbContext context)

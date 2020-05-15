@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.NetCore.Interfaces
 {
-    interface IBodyTemperaturesIntreface
+   public interface IBodyTemperaturesIntreface
     {
 
         Task<IEnumerable<BodyTemperature>> GetAllBodyTemperatures();

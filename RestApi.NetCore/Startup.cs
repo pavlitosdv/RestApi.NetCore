@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestApi.NetCore.Areas.Identity;
+using RestApi.NetCore.Repositories;
+using RestApi.NetCore.Interfaces;
 
 namespace RestApi.NetCore
 {
@@ -34,6 +36,8 @@ namespace RestApi.NetCore
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddScoped<IBodyTemperaturesIntreface, BodyTemperatureRepository>();
+            services.AddScoped<IFeverIntervalInterface, FeversIntervalRepository>();
             services.AddRazorPages();
         }
 
