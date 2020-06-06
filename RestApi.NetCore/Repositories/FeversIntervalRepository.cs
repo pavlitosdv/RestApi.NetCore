@@ -82,7 +82,8 @@ namespace RestApi.NetCore.Repositories
         //If no record exists, brings null
         public FeverInterval GetUserLastFeverInterval(string userId)
         {
-            var feverInterval = _context.FeverIntervals.AsNoTracking().AsEnumerable().LastOrDefault(i => i.UserId == userId);
+            var feverInterval = _context.FeverIntervals.LastOrDefault(i => i.UserId == userId);
+            //var feverInterval = _context.FeverIntervals.AsNoTracking().AsEnumerable().LastOrDefault(i => i.UserId == userId);
 
             return feverInterval;
         }

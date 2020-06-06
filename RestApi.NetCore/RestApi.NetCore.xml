@@ -4,12 +4,6 @@
         <name>RestApi.NetCore</name>
     </assembly>
     <members>
-        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.GetBodyTemperature">
-            <summary>
-            Get all method
-            </summary>
-            <returns>it gives all the users records of the Body Temperatures Table </returns>
-        </member>
         <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.GetBodyTemperatureByUserId(System.String)">
             <summary>
             Get By Id method. 
@@ -29,11 +23,39 @@
             <param name="bodyTemperature"></param>
             <returns>creates or updates tables as described into summary</returns>
         </member>
+        <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.GetBodyTemperature">
+            <summary>
+            Get all method
+            </summary>
+            <returns>it gives all the users records of the Body Temperatures Table </returns>
+        </member>
         <member name="M:RestApi.NetCore.Controllers.BodyTemperaturesAPIController.DeleteBodyTemperature(System.Int32)">
             <summary>
             Delete Method using the Primary Id Key 
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestApi.NetCore.Controllers.FeverIntervalsAPIController.GetFeversIntervalByUserId(System.String)">
+            <summary>
+            Gets the User's Fever Sessions
+            </summary>
+            <param name="id">The parameter Id is string type</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestApi.NetCore.Controllers.UserAPIController.GetUserById(System.String)">
+            <summary>
+            A user can get his/her details
+            </summary>
+            <param name="id">The parameter it is string type</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestApi.NetCore.Controllers.UserAPIController.UserUpdate(System.String,RestApi.NetCore.Areas.Identity.ApplicationUser)">
+            <summary>
+            With this Method the user can upadate his/her details in the Database
+            </summary>
+            <param name="id"></param>
+            <param name="user"></param>
             <returns></returns>
         </member>
     </members>

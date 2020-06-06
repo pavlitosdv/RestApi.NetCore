@@ -30,7 +30,7 @@ namespace RestApi.NetCore.Controllers
         /// <param name="id">Primary key</param>
         /// <returns>Gives a record by using the Primary key</returns>
         // GET: api/BodyTemperaturesAPI/5
-        [HttpGet("{id}")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<BodyTemperature>> GetBodyTemperatureByUserId(string userId)
         {
             var bodyTemperature = await _repo.GetBodyTemperaturesById(userId);
